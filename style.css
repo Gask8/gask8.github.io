@@ -21,7 +21,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px;
     max-width: 90%; /* Ensure it fits on smaller screens */
-    width: 400px; /* Max width for desktop */
+    width: 500px; /* Max width for desktop */
 }
 
 h1 {
@@ -32,26 +32,56 @@ h1 {
 #grid-4x4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 8px;
     width: 100%;
-    max-width: 300px; /* Limit grid size */
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: #e9e9e9;
 }
 
-.grid-cell {
+.grid-item-container {
+    background-color: #f9f9f9;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-item-number {
+    padding: 8px;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    color: #0056b3;
+}
+
+.grid-item-bottom {
+    display: flex;
+    min-height: 30px;
+}
+
+.grid-item-left, .grid-item-right {
+    flex: 1; /* take up remaining space */
+    text-align: center;
+    padding: 5px;
+    font-size: 0.9em;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f9f9f9;
-    border: 1px solid #bbb;
-    border-radius: 3px;
-    font-size: 1.2em;
+}
+
+.grid-item-op {
+    flex-basis: 20px; /* fixed width for operator */
+    text-align: center;
+    padding: 5px;
     font-weight: bold;
-    color: #555;
-    aspect-ratio: 1 / 1; /* Make cells square */
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #number-strip {
@@ -59,7 +89,7 @@ h1 {
     grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Responsive columns */
     gap: 5px;
     width: 100%;
-    max-width: 300px; /* Align with grid size */
+    max-width: 450px; /* Align with grid size */
     margin-top: 20px;
     padding: 5px;
     border: 1px solid #ddd;
@@ -95,19 +125,33 @@ h1 {
     #game-container {
         padding: 10px;
         margin: 10px;
+        width: 95%;
     }
 
     h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
     }
 
-    #grid-4x4, #number-strip {
-        max-width: 280px;
-        gap: 3px;
+    #grid-4x4 {
+        gap: 5px;
+    }
+    
+    .grid-item-number {
+        font-size: 0.9em;
+        padding: 5px;
     }
 
-    .grid-cell {
-        font-size: 1em;
+    .grid-item-left, .grid-item-right, .grid-item-op {
+        font-size: 0.8em;
+        padding: 3px;
+    }
+    
+    .grid-item-op {
+        flex-basis: 15px;
+    }
+
+    #number-strip {
+        max-width: 100%;
     }
 
     .strip-cell {

@@ -1,8 +1,13 @@
 window.onload = init;
 
+let model;
+let view;
+let controller;
+
 function init() {
-  //   calculateBoardBoundaries();
-  //   controller.startGame();
-  //   view.displayPlayerPieces(1);
-  // printMousePoint();
+    model = new Model();
+    view = new View();
+    controller = new Controller(model, view);
+
+    controller.startGame();
 }

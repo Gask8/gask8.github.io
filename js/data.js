@@ -15,3 +15,28 @@ Cómo jugar a Tetonor (Reglas Generales):
 4. Deducción: Usas la lógica para averiguar qué números de la tira forman qué pares, rellenando los espacios en blanco en la tira y la cuadrícula.
 5. Restricciones: Cada número en la tira se usa exactamente una vez en los 8 pares, y los números de la tira suelen estar en orden ascendente.
 `;
+
+const games = [
+  {
+    id: 1,
+    grid: [60, 23, 13, 6, 12, 112, 17, 48, 22, 18, 105, 30, 26, 7, 19, 9],
+    strip: [
+      null,
+      null,
+      2,
+      3,
+      3,
+      3,
+      null,
+      6,
+      null,
+      8,
+      12,
+      14,
+      null,
+      16,
+      null,
+      21,
+    ],
+  },
+];
