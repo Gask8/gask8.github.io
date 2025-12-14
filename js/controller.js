@@ -2,15 +2,75 @@ class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.viewUpdateInterval = null;
   }
 
-  startGame() {
-    const gameIdToLoad = 1;
-    if (this.model.loadGame(gameIdToLoad)) {
-      this.view.renderGrid(this.model.getGrid());
-      this.view.renderStrip(this.model.getStrip());
-      this.view.bindGridCellClick(this.handleGridCellClick.bind(this));
+  init() {
+    this.view.renderRules(rules_us, reglas_es, comments_es);
+    this.bindEvents();
+    this.startGame(1); // Start with game 1 by default
+  }
+
+  bindEvents() {
+    this.view.bindGridCellClick(this.handleGridCellClick.bind(this));
+    this.view.bindStripCellClick(this.handleStripCellClick.bind(this));
+    this.view.bindGameSelectionClick(this.handleGameSelectionClick.bind(this));
+    this.view.bindRulesButton(this.handleShowRules.bind(this));
+    this.view.bindCloseModalButton(this.handleHideRules.bind(this));
+  }
+
+  startGame(gameId = 1) {
+    // Stop any existing timers
+    this.model.stopTimer();
+    if (this.viewUpdateInterval) {
+      clearInterval(this.viewUpdateInterval);
     }
+
+    // Load the new game
+    if (this.model.loadGame(gameId)) {
+      this.view.renderGrid(this.model.getGrid());
+      this.view.renderStrip(
+        this.model.getStrip(),
+        this.model.getInitialStrip()
+      );
+      this.view.updateStripAppearance(this.model.getStripState());
+      this.view.setActiveGameButton(gameId);
+
+      // Start the new game timer
+      this.model.startTimer();
+      this.viewUpdateInterval = setInterval(() => {
+        this.view.renderTimer(this.model.getElapsedTime());
+      }, 1000);
+    }
+  }
+
+  handleShowRules() {
+    this.view.toggleModal(true);
+  }
+
+  handleHideRules() {
+    this.view.toggleModal(false);
+  }
+
+  handleGameSelectionClick(gameId) {
+    this.startGame(gameId);
+  }
+
+  handleStripCellClick(targetElement) {
+    const stripIndex = parseInt(targetElement.dataset.index);
+    if (isNaN(stripIndex)) return;
+
+    const onSelect = (selectedValue) => {
+      if (selectedValue === "Clear") {
+        selectedValue = null;
+      }
+      this.model.updateStripNumber(stripIndex, selectedValue);
+      this.view.updateStripCell(stripIndex, selectedValue);
+    };
+
+    const validNumbers = this.model.getValidStripNumbers(stripIndex);
+    const tooltipItems = ["Clear", ...validNumbers];
+    this.view.createTooltip(tooltipItems, targetElement, onSelect);
   }
 
   handleGridCellClick(targetElement) {
@@ -28,14 +88,11 @@ class Controller {
     }
 
     const onSelect = (selectedValue, selectedIndex) => {
-      // If user selects "Clear", value and index should be null
       const valueToSet = selectedValue === "Clear" ? null : selectedValue;
       const indexToSet = selectedValue === "Clear" ? null : selectedIndex;
 
-      // Update the view first
       this.view.updateGridCellContent(targetElement, valueToSet);
 
-      // Then, update the model and validate
       const isValid = this.model.updateGridItemState(
         gridIndex,
         columnType,
@@ -43,10 +100,7 @@ class Controller {
         indexToSet
       );
 
-      // Finally, update the border based on validation
       this.view.updateGridItemBorder(gridIndex, isValid);
-
-      // Update the strip appearance based on the new strip state
       this.view.updateStripAppearance(this.model.getStripState());
     };
 
@@ -56,37 +110,38 @@ class Controller {
         .filter((item) => item.value !== null);
       const usedIndices = this.model.getUsedOperandIndices();
 
-      // Find out which index is currently in the clicked cell, if any
       const gridState = this.model.gridState[gridIndex];
       const currentIndexInCell =
         columnType === "left"
           ? gridState.operandIndexA
           : gridState.operandIndexB;
 
-      // An item is available if its index is not in the used set
       const availableItems = allStripItems.filter(
         (item) => !usedIndices.has(item.index)
       );
 
-      // If a value is already in the cell, it should be available in the tooltip to allow re-selection or clearing.
       if (currentIndexInCell !== null) {
         const currentItem = this.model
           .getStrip()
           .find((item) => item.index === currentIndexInCell);
         if (currentItem) {
-          availableItems.unshift(currentItem);
+          if (
+            !availableItems.some((item) => item.index === currentItem.index)
+          ) {
+            availableItems.unshift(currentItem);
+          }
         }
       }
 
-      // Add "Clear" option
+      availableItems.sort((a, b) => a.value - b.value);
       const tooltipItems = ["Clear", ...availableItems];
       this.view.createTooltip(tooltipItems, targetElement, onSelect);
     } else if (type === "operator") {
       this.view.createTooltip(
         [
-          { value: "", index: null },
+          { value: "Clear", index: null },
           { value: "+", index: 0 },
-          { value: "*", index: 2 },
+          { value: "*", index: 1 },
         ],
         targetElement,
         onSelect

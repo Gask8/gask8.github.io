@@ -1,9 +1,10 @@
 class Model {
   constructor() {
-    this.currentGrid = [];
-    this.currentStrip = [];
     this.gridState = [];
     this.stripState = [];
+    this.startTime = null;
+    this.elapsedTime = 0;
+    this.timerInterval = null;
   }
 
   loadGame(gameId) {
@@ -11,6 +12,7 @@ class Model {
     if (gameData) {
       this.currentGrid = [...gameData.grid];
       this.currentStrip = [...gameData.strip];
+      this.initialStrip = [...gameData.strip]; // Save the original state
       this.initializeGridState();
       this.initializeStripState();
       return true;
@@ -49,8 +51,43 @@ class Model {
     return returnStrip;
   }
 
+  getInitialStrip() {
+    return this.initialStrip;
+  }
+
   getStripState() {
     return this.stripState;
+  }
+
+  updateStripNumber(stripIndex, value) {
+    this.currentStrip[stripIndex] = value;
+  }
+
+  getValidStripNumbers(stripIndex) {
+    let min = 1;
+    let max = 50;
+
+    // Find left neighbor
+    for (let i = stripIndex - 1; i >= 0; i--) {
+      if (this.currentStrip[i] !== null) {
+        min = this.currentStrip[i];
+        break;
+      }
+    }
+
+    // Find right neighbor
+    for (let i = stripIndex + 1; i < this.currentStrip.length; i++) {
+      if (this.currentStrip[i] !== null) {
+        max = this.currentStrip[i];
+        break;
+      }
+    }
+
+    const options = [];
+    for (let i = min; i <= max; i++) {
+      options.push(i);
+    }
+    return options;
   }
 
   updateGridItemState(gridIndex, columnType, value, operandIndex) {
@@ -94,6 +131,7 @@ class Model {
   }
 
   updateStripOperatorState(stripIndex, operator, value) {
+    if (stripIndex === null) return;
     const state = this.stripState[stripIndex];
     if (!state) return;
 
@@ -172,5 +210,20 @@ class Model {
       }
     });
     return usedIndices;
+  }
+
+  startTimer() {
+    this.startTime = Date.now();
+    this.timerInterval = setInterval(() => {
+      this.elapsedTime = Date.now() - this.startTime;
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.timerInterval);
+  }
+
+  getElapsedTime() {
+    return this.elapsedTime;
   }
 }

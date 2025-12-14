@@ -16,6 +16,10 @@ Cómo jugar a Tetonor (Reglas Generales):
 5. Restricciones: Cada número en la tira se usa exactamente una vez en los 8 pares, y los números de la tira suelen estar en orden ascendente.
 `;
 
+const comments_es = `
+Este juego fue hecho con pasión para llevar lo a más personas. Espero que lo disfruten. El código del juego es abierto y, si tienen comentarios o sugerencias, pueden contactarme en ga.salandra@gmail.com.
+`;
+
 const games = [
   {
     id: 1,
@@ -37,6 +41,76 @@ const games = [
       16,
       null,
       21,
+    ],
+  },
+  {
+    id: 2,
+    grid: [25, 13, 72, 30, 69, 29, 100, 24, 11, 9, 26, 22, 15, 36, 10, 54],
+    strip: [
+      1,
+      2,
+      3,
+      3,
+      3,
+      null,
+      null,
+      null,
+      null,
+      9,
+      19,
+      12,
+      18,
+      20,
+      null,
+      null,
+    ],
+  },
+  {
+    id: 3,
+    grid: [
+      144, 30, 24, 180, 21, 176, 26, 140, 28, 27, 160, 98, 33, 182, 27, 200,
+    ],
+    strip: [
+      null,
+      7,
+      8,
+      8,
+      10,
+      null,
+      null,
+      12,
+      null,
+      14,
+      14,
+      null,
+      18,
+      null,
+      null,
+      null,
+    ],
+  },
+  {
+    id: 4,
+    grid: [
+      27, 198, 126, 27, 102, 29, 132, 25, 180, 144, 28, 23, 210, 37, 160, 41,
+    ],
+    strip: [
+      null,
+      5,
+      6,
+      6,
+      6,
+      null,
+      9,
+      11,
+      16,
+      null,
+      18,
+      null,
+      null,
+      null,
+      null,
+      null,
     ],
   },
 ];

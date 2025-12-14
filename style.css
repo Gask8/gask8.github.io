@@ -11,6 +11,7 @@ body {
 }
 
 #game-container {
+  position: relative; /* Needed for positioning the timer */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +23,15 @@ body {
   margin: 20px;
   max-width: 90%; /* Ensure it fits on smaller screens */
   width: 500px; /* Max width for desktop */
+}
+
+#timer-display {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
 }
 
 h1 {
@@ -113,6 +123,11 @@ h1 {
   aspect-ratio: 1 / 1; /* Make cells square */
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.strip-cell.user-fillable {
+    background-color: #e8f0fe;
+    border-style: dashed;
 }
 
 .strip-cell:hover {
@@ -239,4 +254,106 @@ h1 {
   color: #dc3545;
   font-weight: bold;
   font-size: 1.4em;
+}
+
+/* Modifier for smaller tooltips (like for operators) */
+.tooltip-selector-small {
+    display: flex;
+    max-width: 120px;
+    grid-template-columns: repeat(3, 1fr); /* Override the 4-column grid */
+}
+
+/* Game Selector Styles */
+#game-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#game-selector button {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#game-selector button:hover {
+    background-color: #0056b3;
+}
+
+#game-selector button.active {
+    background-color: #28a745; /* Green to show active game */
+    cursor: default;
+}
+
+/* Rules Button and Modal Styles */
+#rules-btn {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    color: #666;
+}
+
+.rules-text {
+    white-space: pre-wrap; /* Respects newlines in the template literal */
+    font-family: monospace;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
+
+.hidden {
+    display: none;
 }
