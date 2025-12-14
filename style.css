@@ -1,161 +1,242 @@
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    color: #333;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #333;
 }
 
 #game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    max-width: 90%; /* Ensure it fits on smaller screens */
-    width: 500px; /* Max width for desktop */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  max-width: 90%; /* Ensure it fits on smaller screens */
+  width: 500px; /* Max width for desktop */
 }
 
 h1 {
-    color: #0056b3;
-    margin-bottom: 20px;
+  color: #0056b3;
+  margin-bottom: 20px;
 }
 
 #grid-4x4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #e9e9e9;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #e9e9e9;
 }
 
 .grid-item-container {
-    background-color: #f9f9f9;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
+  background-color: #f9f9f9;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid-item-number {
-    padding: 8px;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-    color: #0056b3;
+  padding: 8px;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  color: #0056b3;
 }
 
 .grid-item-bottom {
-    display: flex;
-    min-height: 30px;
+  display: flex;
+  min-height: 30px;
 }
 
-.grid-item-left, .grid-item-right {
-    flex: 1; /* take up remaining space */
-    text-align: center;
-    padding: 5px;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.grid-item-left,
+.grid-item-right {
+  flex: 1; /* take up remaining space */
+  text-align: center;
+  padding: 5px;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .grid-item-op {
-    flex-basis: 20px; /* fixed width for operator */
-    text-align: center;
-    padding: 5px;
-    font-weight: bold;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex-basis: 20px; /* fixed width for operator */
+  text-align: center;
+  padding: 5px;
+  font-weight: bold;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #number-strip {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr)); /* Responsive columns */
-    gap: 5px;
-    width: 100%;
-    max-width: 450px; /* Align with grid size */
-    margin-top: 20px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #e9e9e9;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(40px, 1fr)
+  ); /* Responsive columns */
+  gap: 5px;
+  width: 100%;
+  max-width: 450px; /* Align with grid size */
+  margin-top: 20px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #e9e9e9;
 }
 
 .strip-cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f9f9f9;
-    border: 1px solid #bbb;
-    border-radius: 3px;
-    font-size: 1em;
-    color: #333;
-    aspect-ratio: 1 / 1; /* Make cells square */
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font-size: 1em;
+  color: #333;
+  aspect-ratio: 1 / 1; /* Make cells square */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .strip-cell:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
+}
+
+.grid-hover:hover {
+  background-color: #ededed;
 }
 
 .strip-cell.selected {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
 }
 
 @media (max-width: 480px) {
-    #game-container {
-        padding: 10px;
-        margin: 10px;
-        width: 95%;
-    }
+  #game-container {
+    padding: 10px;
+    margin: 10px;
+    width: 95%;
+  }
 
-    h1 {
-        font-size: 1.5em;
-    }
+  h1 {
+    font-size: 1.5em;
+  }
 
-    #grid-4x4 {
-        gap: 5px;
-    }
-    
-    .grid-item-number {
-        font-size: 0.9em;
-        padding: 5px;
-    }
+  #grid-4x4 {
+    gap: 5px;
+  }
 
-    .grid-item-left, .grid-item-right, .grid-item-op {
-        font-size: 0.8em;
-        padding: 3px;
-    }
-    
-    .grid-item-op {
-        flex-basis: 15px;
-    }
+  .grid-item-number {
+    font-size: 0.9em;
+    padding: 5px;
+  }
 
-    #number-strip {
-        max-width: 100%;
-    }
+  .grid-item-left,
+  .grid-item-right,
+  .grid-item-op {
+    font-size: 0.8em;
+    padding: 3px;
+  }
 
-    .strip-cell {
-        font-size: 0.9em;
-        min-width: 35px;
-    }
+  .grid-item-op {
+    flex-basis: 15px;
+  }
+
+  #number-strip {
+    max-width: 100%;
+  }
+
+  .strip-cell {
+    font-size: 0.9em;
+    min-width: 35px;
+  }
+}
+
+/* Tooltip for selecting numbers and operators */
+.tooltip-selector {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  padding: 5px;
+  z-index: 1000;
+}
+
+.tooltip-item {
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+}
+
+.tooltip-item:hover {
+  background-color: #007bff;
+
+  color: #fff;
+}
+
+.initial-number {
+  font-weight: bold;
+}
+
+/* Validation Status Styles */
+
+.grid-item-container.valid {
+  border: 2px solid #28a745; /* Green */
+}
+
+.grid-item-container.invalid {
+  border: 2px solid #dc3545; /* Red */
+}
+
+/* Style for used numbers in the strip */
+
+.strip-cell.used {
+  opacity: 0.5;
+  position: relative;
+  cursor: not-allowed;
+}
+
+.strip-cell.plusUsed::after {
+  content: "+";
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.strip-cell.multiplyUsed::before {
+  content: "*";
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.4em;
 }
