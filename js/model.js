@@ -185,28 +185,11 @@ class Model {
     return state.isValid;
   }
 
-  getUsedOperands() {
-    const used = [];
-
-    this.gridState.forEach((state) => {
-      if (state.operandA !== null) {
-        used.push(state.operandA);
-      }
-      if (state.operandB !== null) {
-        used.push(state.operandB);
-      }
-    });
-    return used;
-  }
-
   getUsedOperandIndices() {
     const usedIndices = new Set();
-    this.gridState.forEach((state) => {
-      if (state.operandIndexA !== null) {
-        usedIndices.add(state.operandIndexA);
-      }
-      if (state.operandIndexB !== null) {
-        usedIndices.add(state.operandIndexB);
+    this.stripState.forEach((state, index) => {
+      if (state.operatorPlus && state.operatorMultiply) {
+        usedIndices.add(index);
       }
     });
     return usedIndices;
