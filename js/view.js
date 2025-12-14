@@ -156,8 +156,22 @@ class View {
     document.body.appendChild(tooltip);
     this.activeTooltip = tooltip;
 
+    // Position the tooltip
     const rect = targetElement.getBoundingClientRect();
-    tooltip.style.left = `${rect.left + window.scrollX}px`;
+    const tooltipRect = tooltip.getBoundingClientRect(); // Get tooltip dimensions after appending
+    const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+    let leftPos = rect.left + window.scrollX;
+    // If tooltip overflows to the right, position it to the left of the target
+    if (leftPos + tooltipRect.width > viewportWidth - 10) { // 10px padding from right edge
+        leftPos = rect.right + window.scrollX - tooltipRect.width;
+        // Ensure it doesn't go off the left side either
+        if (leftPos < 10) {
+            leftPos = 10; // Fallback: just put it at 10px from left
+        }
+    }
+
+    tooltip.style.left = `${leftPos}px`;
     tooltip.style.top = `${rect.bottom + window.scrollY}px`;
 
     setTimeout(() => {
