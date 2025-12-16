@@ -1,18 +1,22 @@
 const rules_us = `
 How to Play Tetonor (General Rules):
-1. The Grid & Strip: You have a main grid (often 4x4) with 16 numbers and a strip below with 16 numbers (some might be blank).
+1. The Grid & Strip: You have a main grid (4x4) with 16 numbers and a strip below with 16 numbers (some might be blank).
 2. Pairing: The numbers in the strip must be split into 8 pairs (A, B).
-3. Formulas: For each pair (A, B), their sum (A+B) and their product (A×B) must both appear as numbers in the main grid.
-4. Deduction: You use logic to figure out which numbers from the strip form which pairs, filling in the blanks in the strip and grid.
+3. Addition and Multiplication: For each pair (A, B), their sum (A+B) and their product (A×B) must both appear as numbers in the main grid.
+Example: If a pair in the strip is (3, 6), then 9 (3+6) and 18 (3×6) should be found in the grid. And you may not use (3, 6) again for another pair.
+4. Deduction: One must select ont the grid, which numbers and operations correspond for the grid's number. If the pair does not comply with both sum and product, it is invalid.
+Example: If you select 3 and 6 with product 18 and sum 9, but on the grid number 9 is missing, then the pair is invalid, and you must try another combination.
 5. Constraints: Each number in the strip is used exactly once across all 8 pairs, and the strip numbers are usually in ascending order. 
 `;
 
 const reglas_es = `
 Cómo jugar a Tetonor (Reglas Generales):
-1. La cuadrícula y la tira: Tienes una cuadrícula principal (a menudo 4x4) con 16 números y una tira debajo con 16 números (algunos pueden estar en blanco).
+1. La cuadrícula y la tira: Tienes una cuadrícula principal (4x4) con 16 números y una tira debajo con 16 números (algunos pueden estar en blanco).
 2. Emparejamiento: Los números en la tira deben dividirse en 8 pares (A, B).
-3. Fórmulas: Para cada par (A, B), su suma (A+B) y su producto (A×B) deben aparecer como números en la cuadrícula principal.
-4. Deducción: Usas la lógica para averiguar qué números de la tira forman qué pares, rellenando los espacios en blanco en la tira y la cuadrícula.
+3. Suma y Multiplicación: Para cada par (A, B), su suma (A+B) y su producto (A×B) deben aparecer como números en la cuadrícula principal.
+Ejemplo: Si un par en la tira es (3, 6), entonces 9 (3+6) y 18 (3×6) deben encontrarse en la cuadrícula. No puedes usar (3, 6) nuevamente para otro par.
+4. Deducción: Debes seleccionar en la cuadrícula qué números y operaciones corresponden al número de la cuadrícula. Si el par no cumple con ambas suma y producto, es inválido.
+Ejemplo: Si seleccionas 3 y 6 con producto 18 y suma 9, pero en la cuadrícula falta el número 9, entonces el par es inválido y debes probar otra combinación.
 5. Restricciones: Cada número en la tira se usa exactamente una vez en los 8 pares, y los números de la tira suelen estar en orden ascendente.
 `;
 

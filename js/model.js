@@ -209,4 +209,22 @@ class Model {
   getElapsedTime() {
     return this.elapsedTime;
   }
+
+  checkWinCondition() {
+    // 1. Check if all grid items are valid
+    const allGridItemsValid = this.gridState.every((item) => item.isValid);
+
+    if (!allGridItemsValid) {
+      return false;
+    }
+
+    // 2. Check if all strip numbers are used
+    const usedCount = this.stripState.filter(
+      (item) => item.operatorPlus && item.operatorMultiply
+    ).length;
+
+    const allStripItemsUsed = usedCount === this.stripState.length;
+
+    return allStripItemsUsed;
+  }
 }

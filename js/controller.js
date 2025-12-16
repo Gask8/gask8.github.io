@@ -111,6 +111,11 @@ class Controller {
 
       this.view.updateGridItemBorder(gridIndex, isValid);
       this.view.updateStripAppearance(this.model.getStripState());
+
+      if (this.model.checkWinCondition()) {
+        this.model.stopTimer();
+        alert("You have won!");
+      }
     };
 
     if (type === "operand") {
