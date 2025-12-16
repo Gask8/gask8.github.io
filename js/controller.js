@@ -1,3 +1,4 @@
+"use strict";
 class Controller {
   constructor(model, view) {
     this.model = model;
@@ -12,11 +13,14 @@ class Controller {
   }
 
   bindEvents() {
-    this.view.bindGridCellClick(this.handleGridCellClick.bind(this));
-    this.view.bindStripCellClick(this.handleStripCellClick.bind(this));
-    this.view.bindGameSelectionClick(this.handleGameSelectionClick.bind(this));
-    this.view.bindRulesButton(this.handleShowRules.bind(this));
-    this.view.bindCloseModalButton(this.handleHideRules.bind(this));
+    const handlers = {
+      gridCell: this.handleGridCellClick.bind(this),
+      stripCell: this.handleStripCellClick.bind(this),
+      gameSelection: this.handleGameSelectionClick.bind(this),
+      rulesButton: this.handleShowRules.bind(this),
+      closeModal: this.handleHideRules.bind(this),
+    };
+    this.view.init(handlers);
   }
 
   startGame(gameId = 1) {
@@ -53,7 +57,12 @@ class Controller {
   }
 
   handleGameSelectionClick(gameId) {
-    this.startGame(gameId);
+    const confirmation = confirm(
+      "Are you sure you want to change the game? Your current progress will be lost."
+    );
+    if (confirmation) {
+      this.startGame(gameId);
+    }
   }
 
   handleStripCellClick(targetElement) {
@@ -108,28 +117,22 @@ class Controller {
       const allStripItems = this.model
         .getStrip()
         .filter((item) => item.value !== null);
+
       const usedIndices = this.model.getUsedOperandIndices();
-
-      const gridState = this.model.gridState[gridIndex];
-      const currentIndexInCell =
-        columnType === "left"
-          ? gridState.operandIndexA
-          : gridState.operandIndexB;
-
       const availableItems = allStripItems.filter(
         (item) => !usedIndices.has(item.index)
       );
 
-      if (currentIndexInCell !== null) {
-        const currentItem = this.model
-          .getStrip()
-          .find((item) => item.index === currentIndexInCell);
-        if (currentItem) {
-          if (
-            !availableItems.some((item) => item.index === currentItem.index)
-          ) {
-            availableItems.unshift(currentItem);
-          }
+      const gridState = this.model.gridState[gridIndex];
+      const indexAlreadyOnCell =
+        gridState.operandIndexA || gridState.operandIndexB;
+      if (indexAlreadyOnCell !== null) {
+        const indexToRemove = availableItems.findIndex(
+          (item) => item.index === indexAlreadyOnCell
+        );
+
+        if (indexToRemove !== -1) {
+          availableItems.splice(indexToRemove, 1); // ✅ mutates array
         }
       }
 

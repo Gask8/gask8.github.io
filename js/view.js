@@ -1,9 +1,12 @@
+"use strict";
 class View {
   constructor() {
     this.gridContainer = document.getElementById("grid-4x4");
     this.stripContainer = document.getElementById("number-strip");
     this.timerDisplay = document.getElementById("timer-display");
     this.gameSelector = document.getElementById("game-selector");
+    this.showGamesBtn = document.getElementById("show-games-btn");
+    this.gameSelectionPanel = document.getElementById("game-selection-panel");
 
     // Rules Modal Elements
     this.rulesBtn = document.getElementById("rules-btn");
@@ -14,6 +17,15 @@ class View {
     this.commentsEsContainer = document.getElementById("comments-es");
 
     this.activeTooltip = null;
+  }
+
+  init(handlers) {
+    this.bindGridCellClick(handlers.gridCell);
+    this.bindStripCellClick(handlers.stripCell);
+    this.bindGameSelectionClick(handlers.gameSelection);
+    this.bindRulesButton(handlers.rulesButton);
+    this.bindCloseModalButton(handlers.closeModal);
+    this.bindShowGamesButton();
   }
 
   renderGrid(gridData) {
@@ -122,6 +134,12 @@ class View {
       if (event.target === this.rulesModal) {
         handler();
       }
+    });
+  }
+
+  bindShowGamesButton() {
+    this.showGamesBtn.addEventListener("click", () => {
+      this.gameSelectionPanel.classList.toggle("hidden");
     });
   }
 
