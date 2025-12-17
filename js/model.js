@@ -65,7 +65,7 @@ class Model {
 
   getValidStripNumbers(stripIndex) {
     let min = 1;
-    let max = 50;
+    let max = 100;
 
     // Find left neighbor
     for (let i = stripIndex - 1; i >= 0; i--) {
